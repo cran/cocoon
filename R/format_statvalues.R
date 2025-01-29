@@ -29,19 +29,20 @@ format_corr <- function(x,
                         type,
                         ...) {
   # Check input type
-  stopifnot("Input must be a correlation object." = (inherits(x, what = "htest") && grepl("correlation", x$method)) | inherits(x, what = "easycorrelation"))
+  stopifnot("Input must be a correlation object." =
+              (inherits(x, what = "htest") && grepl("correlation", x$method)) |
+              inherits(x, what = "easycorrelation"))
 
   # Validate arguments
-  stopifnot("Input must be a correlation object." = inherits(x, what = "htest") && grepl("correlation", x$method))
-  stopifnot("Argument `digits` must be a non-negative numeric vector." = is.numeric(digits))
-  stopifnot("Argument `digits` must be a non-negative numeric vector." = digits >= 0)
-  stopifnot("Argument `pdigits` must be a numeric between 1 and 5." = is.numeric(pdigits))
-  stopifnot("Argument `pdigits` must be a numeric between 1 and 5." = pdigits > 0)
-  stopifnot("Argument `pdigits` must be a numeric between 1 and 5." = pdigits < 6)
-  stopifnot("Argument `pzero` must be TRUE or FALSE." = is.logical(pzero))
-  stopifnot("Argument `full` must be TRUE or FALSE." = is.logical(full))
-  stopifnot("Argument `italics` must be TRUE or FALSE." = is.logical(italics))
-  stopifnot("Argument `type` must be 'md' or 'latex'." = type %in% c("md", "latex"))
+  stopifnot("Input must be a correlation object." =
+              inherits(x, what = "htest") && grepl("correlation", x$method))
+  check_number_whole(digits, min = 0, allow_null = TRUE)
+  check_number_whole(pdigits, min = 1, max = 5)
+  check_bool(pzero)
+  check_bool(full)
+  check_bool(italics)
+  check_string(type)
+  check_match(type, c("md", "latex"))
 
   # Format numbers
   corr_method <- dplyr::case_when(
@@ -63,14 +64,26 @@ format_corr <- function(x,
 
   # Build label
   stat_label <- dplyr::case_when(
-    !italics & identical(corr_method, "pearson") ~ paste0("r"),
-    !italics & identical(corr_method, "spearman") & identical(type, "md") ~ paste0("\u03C1"),
-    !italics & identical(corr_method, "spearman") & identical(type, "latex") ~ paste0("\\rho"),
-    !italics & identical(corr_method, "kendall") & identical(type, "md") ~ paste0("\u03C4"),
-    !italics & identical(corr_method, "kendall") & identical(type, "latex") ~ paste0("\\tau"),
-    identical(corr_method, "pearson") ~ paste0(format_chr("r", italics = italics, type = type)),
-    identical(corr_method, "kendall") ~ paste0(format_chr("\u03C4", italics = italics, type = type)),
-    identical(corr_method, "spearman") ~ paste0(format_chr("\u03C1", italics = italics, type = type)),
+    !italics & identical(corr_method, "pearson") ~
+      "r",
+    !italics & identical(corr_method, "spearman") & identical(type, "md") ~
+      "\u03C1",
+    !italics & identical(corr_method, "spearman") & identical(type, "latex") ~
+      "\\textrho",
+    !italics & identical(corr_method, "kendall") & identical(type, "md") ~
+      "\u03C4",
+    !italics & identical(corr_method, "kendall") & identical(type, "latex") ~
+      "\\texttau",
+    identical(corr_method, "pearson") ~
+      format_chr("r", italics = italics, type = type),
+    identical(corr_method, "kendall") & identical(type, "md") ~
+      format_chr("\u03C4", italics = italics, type = type),
+    identical(corr_method, "kendall") & identical(type, "latex") ~
+      format_chr("\\rho", italics = italics, type = type),
+    identical(corr_method, "spearman") & identical(type, "md") ~
+      format_chr("\u03C1", italics = italics, type = type),
+    identical(corr_method, "spearman") & identical(type, "latex") ~
+      format_chr("\\tau", italics = italics, type = type)
   )
 
   # Create statistics string
@@ -124,7 +137,8 @@ format_ttest <- function(x,
       mean_value <- format_num(x$estimate, digits = digits)
     }
     cis <- format_num(x$conf.int, digits = digits)
-    df <- dplyr::case_when(round(x$parameter, 1) == round(x$parameter) ~ format_num(x$parameter, digits = 0),
+    df <- dplyr::case_when(round(x$parameter, 1) == round(x$parameter) ~
+                             format_num(x$parameter, digits = 0),
                            .default = format_num(x$parameter, digits = digits)
     )
     statlab <- "t"
@@ -146,17 +160,22 @@ format_ttest <- function(x,
     identical(type, "md") ~ paste0("_", statlab, "_"),
     identical(type, "latex") ~ paste0("$", statlab, "$")
   )
-  stat_label <- dplyr::case_when(identical(dfs, "par") ~ paste0(stat_label, "(", df, ")"),
-                                 identical(dfs, "sub") & identical(type, "md") ~ paste0(stat_label, "~", df, "~"),
-                                 identical(dfs, "sub") & identical(type, "latex") ~ paste0(stat_label, "$_{", df, "}$"),
+  stat_label <- dplyr::case_when(identical(dfs, "par") ~
+                                   paste0(stat_label, "(", df, ")"),
+                                 identical(dfs, "sub") & identical(type, "md") ~
+                                   paste0(stat_label, "~", df, "~"),
+                                 identical(dfs, "sub") & identical(type, "latex") ~
+                                   paste0(stat_label, "$_{", df, "}$"),
                                  .default = stat_label
   )[1]
 
   # Create statistics string
   if (full) {
     mean_label <- dplyr::case_when(
-      identical(mean, "abbr") ~ paste0(format_chr("M", italics = italics, type = type), " = "),
-      identical(mean, "word") ~ paste0(format_chr("Mean", italics = italics, type = type), " = ")
+      identical(mean, "abbr") ~
+        paste0(format_chr("M", italics = italics, type = type), " = "),
+      identical(mean, "word") ~
+        paste0(format_chr("Mean", italics = italics, type = type), " = ")
     )
   } else {
     mean_label <- mean_value <- cis <- NULL
@@ -246,18 +265,18 @@ format_bf <- function(x,
   }
 
   # Validate arguments
-  stopifnot("Argument `digits1` must be a non-negative numeric vector." = is.numeric(digits1))
-  stopifnot("Argument `digits1` must be a non-negative numeric vector." = digits1 >= 0)
-  stopifnot("Argument `digits2` must be a non-negative numeric vector." = is.numeric(digits2))
-  stopifnot("Argument `digits2` must be a non-negative numeric vector." = digits2 >= 0)
-  stopifnot("Argument `cutoff` must be a numeric vector greater than 1 or NULL." = (is.numeric(cutoff) & cutoff > 1) | is.null(cutoff))
-  stopifnot("Argument `italics` must be TRUE or FALSE." = is.logical(italics))
-  stopifnot("Argument `subscript` must be a character string (usually '10', '01', or '')." = is.character(subscript))
-  stopifnot("Argument `type` must be 'md' or 'latex'." = type %in% c("md", "latex"))
+  check_number_whole(digits1, min = 0, allow_null = TRUE)
+  check_number_whole(digits2, min = 0, allow_null = TRUE)
+  check_number_decimal(cutoff, min = 1, allow_null = TRUE)
+  check_bool(italics)
+  check_string(subscript)
+  check_string(type)
+  check_match(type, c("md", "latex"))
 
   # Build label
   if (label != "") {
-    bf_lab <- paste0(format_chr(label, italics = italics, type = type), format_sub(subscript, type = type))
+    bf_lab <- paste0(format_chr(label, italics = italics, type = type),
+                     format_sub(subscript, type = type))
     operator <- " = "
   } else {
     bf_lab <- ""
@@ -275,7 +294,8 @@ format_bf <- function(x,
   } else {
     bf_value <- dplyr::case_when(
       bf >= cutoff ~ format_num(cutoff, digits = 0),
-      bf <= 1 / cutoff & format_num(1 / cutoff, digits = digits2) == format_num(0, digits = digits2) ~
+      bf <= 1 / cutoff & format_num(1 / cutoff, digits = digits2) ==
+        format_num(0, digits = digits2) ~
         sub("0$", "1", format_num(1 / cutoff, digits = 3)),
       bf <= 1 / cutoff ~ format_num(1 / cutoff, digits = digits2),
       bf <= 1 / 10^digits2 ~ as.character(1 / 10^digits2),
@@ -301,17 +321,17 @@ format_bf <- function(x,
 #' output is APA formatted, but numbers of digits, cutoffs, leading zeros, and
 #' italics are all customizable.
 #'
-#' @param x Number representing p-value
+#' @param x Number representing p-value.
 #' @param digits Number of digits after the decimal for p-values, ranging
-#' between 1-5 (also controls cutoff for small p-values)
+#' between 1-5 (also controls cutoff for small p-values).
 #' @param pzero Logical value (default = FALSE) for whether to include leading
-#' zero for p-values
+#' zero for p-values.
 #' @param label Character string for label before p value. Default is p.
 #' Set `label = ""` to return just the formatted p value with no
-#' label or operator (`=`, `<`, `>`)
+#' label or operator (`=`, `<`, `>`).
 #' @param italics Logical value (default = TRUE) for whether label should be
-#' italicized (_p_)
-#' @param type Type of formatting ("md" = markdown, "latex" = LaTeX)
+#' italicized (_p_).
+#' @param type Type of formatting ("md" = markdown, "latex" = LaTeX).
 #'
 #' @return
 #' A character string that includes _p_ and then the p-value formatted in
@@ -350,13 +370,12 @@ format_p <- function(x,
                      italics = TRUE,
                      type = "md") {
   # Check arguments
-  stopifnot("Input must be a numeric vector." = is.numeric(x))
-  stopifnot("Argument `digits` must be a numeric between 1 and 5." = is.numeric(digits))
-  stopifnot("Argument `digits` must be a numeric between 1 and 5." = digits > 0)
-  stopifnot("Argument `digits` must be a numeric between 1 and 5." = digits < 6)
-  stopifnot("Argument `pzero` must be TRUE or FALSE." = is.logical(pzero))
-  stopifnot("Argument `italics` must be TRUE or FALSE." = is.logical(italics))
-  stopifnot("Argument `type` must be 'md' or 'latex'." = type %in% c("md", "latex"))
+  check_numeric(x)
+  check_number_whole(digits, min = 1, max = 5, allow_null = TRUE)
+  check_bool(pzero)
+  check_bool(italics)
+  check_string(type)
+  check_match(type, c("md", "latex"))
 
   # Build label
   if (label != "") {
@@ -372,10 +391,14 @@ format_p <- function(x,
   operator <- ifelse(label != "" & x < cutoff, " < ", operator)
   ## Format pvalue
   pvalue <- dplyr::case_when(
-    x < cutoff & pzero ~ as.character(as.numeric(paste0("1e-", digits))),
-    x < cutoff & !pzero ~ sub("0\\.", "\\.", as.character(as.numeric(paste0("1e-", digits)))),
-    x >= cutoff & pzero ~ format_num(x, digits = digits),
-    x >= cutoff & !pzero ~ sub("0\\.", "\\.", format_num(x, digits = digits))
+    x < cutoff & pzero ~
+      as.character(as.numeric(paste0("1e-", digits))),
+    x < cutoff & !pzero ~
+      sub("0\\.", "\\.", as.character(as.numeric(paste0("1e-", digits)))),
+    x >= cutoff & pzero ~
+      format_num(x, digits = digits),
+    x >= cutoff & !pzero ~
+      sub("0\\.", "\\.", format_num(x, digits = digits))
   )
   paste0(p_lab, operator, pvalue)
 }

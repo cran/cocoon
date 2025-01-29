@@ -1,9 +1,9 @@
 #' Format numbers
 #'
-#' @param x Number
-#' @param digits Number of digits after the decimal
+#' @param x Number.
+#' @param digits Number of digits after the decimal.
 #' @param pzero Logical value (default = TRUE) for whether to include leading
-#' zero numbers less than 1
+#' zero numbers less than 1.
 #'
 #' @return
 #' A character string formatting the number with specified number of digits
@@ -17,9 +17,8 @@ format_num <- function(x,
                        digits = 1,
                        pzero = TRUE) {
   # Check arguments
-  stopifnot("Input must be a numeric vector." = is.numeric(x))
-  stopifnot("Argument `digits` must be a non-negative numeric vector." = is.numeric(digits))
-  stopifnot("Argument `digits` must be a non-negative numeric vector." = digits >= 0)
+  check_numeric(x)
+  check_number_whole(digits, min = 0)
 
   # Format number
   dplyr::case_when(
@@ -31,9 +30,9 @@ format_num <- function(x,
 
 #' Format numbers in scientific notation
 #'
-#' @param x Number
-#' @param digits Number of digits after the decimal
-#' @param type Type of formatting ("md" = markdown, "latex" = LaTeX)
+#' @param x Number.
+#' @param digits Number of digits after the decimal.
+#' @param type Type of formatting ("md" = markdown, "latex" = LaTeX).
 #'
 #' @return
 #' A character string of a number in scientific notation formatted in Markdown
@@ -48,10 +47,9 @@ format_scientific <- function(x,
                               digits = 1,
                               type = "md") {
   # Check arguments
-  stopifnot("Input must be a numeric vector." = is.numeric(x))
-  stopifnot("Argument `digits` must be a non-negative numeric vector." = is.numeric(digits))
-  stopifnot("Argument `digits` must be a non-negative numeric vector." = digits >= 0)
-  stopifnot("Argument `type` must be 'md' or 'latex'." = type %in% c("md", "latex"))
+  check_numeric(x)
+  check_number_whole(digits, min = 1)
+  check_match(type, c("md", "latex"))
 
   # Format number
   num <- formatC(x, digits = digits, format = "e")
@@ -71,10 +69,10 @@ format_scientific <- function(x,
 
 #' Format character strings with italics and type
 #'
-#' @param x Character string
+#' @param x Character string.
 #' @param italics Logical value (default = TRUE) for whether text should be
-#' italicized
-#' @param type Type of formatting (`"md"` = markdown, `"latex"` = LaTeX)
+#' italicized.
+#' @param type Type of formatting (`"md"` = markdown, `"latex"` = LaTeX).
 #'
 #' @return
 #' A character string that has either Markdown or LaTeX formatting for italics
@@ -91,9 +89,9 @@ format_chr <- function(x,
                        italics = TRUE,
                        type = "md") {
   # Check arguments
-  stopifnot("Input must be a character string." = is.character(x))
-  stopifnot("Argument `italics` must be TRUE or FALSE." = is.logical(italics))
-  stopifnot("Argument `type` must be 'md' or 'latex'." = type %in% c("md", "latex"))
+  check_string(x)
+  check_bool(italics)
+  check_match(type, c("md", "latex"))
   dplyr::case_when(
     italics & type == "md" ~ paste0("_", x, "_"),
     italics & type == "latex" ~ paste0("$", x, "$"),
@@ -104,8 +102,8 @@ format_chr <- function(x,
 
 #' Format subscript text
 #'
-#' @param subscript Character string or NULL
-#' @param type Type of formatting (`"md"` = markdown, `"latex"` = LaTeX)
+#' @param subscript Character string or NULL.
+#' @param type Type of formatting (`"md"` = markdown, `"latex"` = LaTeX).
 #'
 #' @return
 #' A character string that is formatted as subscript for either Markdown or
@@ -119,8 +117,8 @@ format_chr <- function(x,
 format_sub <- function(subscript = NULL,
                        type = "md") {
   # Check arguments
-  stopifnot("Input must be a character string or NULL." = is.character(subscript) | is.null(subscript))
-  stopifnot("Argument `type` must be 'md' or 'latex'." = type %in% c("md", "latex"))
+  check_string(subscript, allow_null = TRUE)
+  check_match(type, c("md", "latex"))
   dplyr::case_when(
     subscript == "" ~ "",
     !is.null(subscript) & type == "md" ~ paste0("~", subscript, "~"),

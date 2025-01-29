@@ -468,12 +468,12 @@ difference), confidence intervals for mean value/difference, appropriate
 test statistic, degrees of freedom (for parametric tests), and
 p-value.</p>
 <p>Let’s start by creating a few different t-tests</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>mpg_disp_ttest_gear_carb <span class="ot">&lt;-</span> <span class="fu">t.test</span>(mtcars<span class="sc">$</span>gear, mtcars<span class="sc">$</span>carb)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>mpg_disp_ttest_gear_carb_paired <span class="ot">&lt;-</span> <span class="fu">t.test</span>(mtcars<span class="sc">$</span>gear, mtcars<span class="sc">$</span>carb, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>mpg_disp_ttest_gear_carb_onesample <span class="ot">&lt;-</span> <span class="fu">t.test</span>(mtcars<span class="sc">$</span>gear, <span class="at">mu =</span> <span class="dv">4</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>mpg_disp_wtest_gear_carb <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(mtcars<span class="sc">$</span>gear, mtcars<span class="sc">$</span>carb, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>mpg_disp_wtest_gear_carb_paired <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(mtcars<span class="sc">$</span>gear, mtcars<span class="sc">$</span>carb, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>mpg_disp_wtest_gear_carb_onesample <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(mtcars<span class="sc">$</span>gear, <span class="at">mu =</span> <span class="dv">4</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>ttest_gear_carb <span class="ot">&lt;-</span> <span class="fu">t.test</span>(mtcars<span class="sc">$</span>gear, mtcars<span class="sc">$</span>carb)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>ttest_gear_carb_paired <span class="ot">&lt;-</span> <span class="fu">t.test</span>(mtcars<span class="sc">$</span>gear, mtcars<span class="sc">$</span>carb, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>ttest_gear_carb_onesample <span class="ot">&lt;-</span> <span class="fu">t.test</span>(mtcars<span class="sc">$</span>gear, <span class="at">mu =</span> <span class="dv">4</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>wtest_gear_carb <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(mtcars<span class="sc">$</span>gear, mtcars<span class="sc">$</span>carb, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>wtest_gear_carb_paired <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(mtcars<span class="sc">$</span>gear, mtcars<span class="sc">$</span>carb, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>wtest_gear_carb_onesample <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(mtcars<span class="sc">$</span>gear, <span class="at">mu =</span> <span class="dv">4</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>For Student’s t-tests, we get the mean value or difference and the
 confidence intervals. Means and confidence intervals can be omitted by
 setting <code>full = FALSE</code>.</p>
@@ -490,34 +490,34 @@ setting <code>full = FALSE</code>.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>format_stats(mpg_disp_ttest_gear_carb)</code></td>
+<td><code>format_stats(ttest_gear_carb)</code></td>
 <td><em>M</em> = 0.9, 95% CI [0.2, 1.5], <em>t</em>(43.4) = 2.8,
 <em>p</em> = .008</td>
 </tr>
 <tr class="even">
-<td><code>format_stats(mpg_disp_ttest_gear_carb_paired)</code></td>
+<td><code>format_stats(ttest_gear_carb_paired)</code></td>
 <td><em>M</em> = 0.9, 95% CI [0.3, 1.4], <em>t</em>(31) = 3.1,
 <em>p</em> = .004</td>
 </tr>
 <tr class="odd">
-<td><code>format_stats(mpg_disp_ttest_gear_carb_onesample)</code></td>
+<td><code>format_stats(ttest_gear_carb_onesample)</code></td>
 <td><em>M</em> = 3.7, 95% CI [3.4, 4.0], <em>t</em>(31) = -2.4,
 <em>p</em> = .023</td>
 </tr>
 <tr class="even">
-<td><code>format_stats(mpg_disp_ttest_gear_carb_onesample, full = FALSE)</code></td>
+<td><code>format_stats(ttest_gear_carb_onesample, full = FALSE)</code></td>
 <td><em>t</em>(31) = -2.4, <em>p</em> = .023</td>
 </tr>
 <tr class="odd">
-<td><code>format_stats(mpg_disp_wtest_gear_carb)</code></td>
+<td><code>format_stats(wtest_gear_carb)</code></td>
 <td><em>W</em> = 727.5, <em>p</em> = .003</td>
 </tr>
 <tr class="even">
-<td><code>format_stats(mpg_disp_wtest_gear_carb_paired)</code></td>
+<td><code>format_stats(wtest_gear_carb_paired)</code></td>
 <td><em>V</em> = 267.0, <em>p</em> = .004</td>
 </tr>
 <tr class="odd">
-<td><code>format_stats(mpg_disp_wtest_gear_carb_onesample)</code></td>
+<td><code>format_stats(wtest_gear_carb_onesample)</code></td>
 <td><em>V</em> = 52.5, <em>p</em> = .027</td>
 </tr>
 </tbody>
@@ -539,31 +539,341 @@ Remove italics with <code>italics = FALSE</code>.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>format_stats(mpg_disp_ttest_gear_carb)</code></td>
+<td><code>format_stats(ttest_gear_carb)</code></td>
 <td><em>M</em> = 0.9, 95% CI [0.2, 1.5], <em>t</em>(43.4) = 2.8,
 <em>p</em> = .008</td>
 </tr>
 <tr class="even">
-<td><code>format_stats(mpg_disp_ttest_gear_carb, digits = 2, pdigits = 2)</code></td>
+<td><code>format_stats(ttest_gear_carb, digits = 2, pdigits = 2)</code></td>
 <td><em>M</em> = 0.88, 95% CI [0.24, 1.51], <em>t</em>(43.40) = 2.79,
 <em>p</em> &lt; .01</td>
 </tr>
 <tr class="odd">
-<td><code>format_stats(mpg_disp_ttest_gear_carb, pzero = TRUE)</code></td>
+<td><code>format_stats(ttest_gear_carb, pzero = TRUE)</code></td>
 <td><em>M</em> = 0.9, 95% CI [0.2, 1.5], <em>t</em>(43.4) = 2.8,
 <em>p</em> = 0.008</td>
 </tr>
 <tr class="even">
-<td><code>format_stats(mpg_disp_ttest_gear_carb, italics = FALSE)</code></td>
+<td><code>format_stats(ttest_gear_carb, italics = FALSE)</code></td>
 <td>M = 0.9, 95% CI [0.2, 1.5], t(43.4) = 2.8, p = .008</td>
 </tr>
 <tr class="odd">
-<td><code>format_stats(mpg_disp_wtest_gear_carb)</code></td>
+<td><code>format_stats(wtest_gear_carb)</code></td>
 <td><em>W</em> = 727.5, <em>p</em> = .003</td>
 </tr>
 <tr class="even">
-<td><code>format_stats(mpg_disp_wtest_gear_carb, italics = FALSE)</code></td>
+<td><code>format_stats(wtest_gear_carb, italics = FALSE)</code></td>
 <td>W = 727.5, p = .003</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="anovas" class="section level3">
+<h3>ANOVAs</h3>
+<p>The <code>format_stats()</code> function can also input objects
+returned by the <code>aov()</code> function. It then reports and formats
+the F statistic, degrees of freedom, and p-value.</p>
+<p>Let’s start by creating an ANOVA</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>aov_mpg_cyl_hp <span class="ot">&lt;-</span> <span class="fu">aov</span>(mpg <span class="sc">~</span> cyl <span class="sc">*</span> hp, <span class="at">data =</span> mtcars)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">summary</span>(aov_mpg_cyl_hp)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt;             Df Sum Sq Mean Sq F value   Pr(&gt;F)    </span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; cyl          1  817.7   817.7  92.472 2.27e-10 ***</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; hp           1   16.4    16.4   1.850   0.1846    </span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; cyl:hp       1   44.4    44.4   5.018   0.0332 *  </span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; Residuals   28  247.6     8.8                     </span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<p>To use <code>format_stats()</code> on ANOVAs, you must pass the
+<code>aov</code> object and a character string describing which term to
+extract. Apply <code>summary()</code> to your <code>aov</code> object
+and copy the text of the term you want to extract. Then you can format
+the number of digits of coefficients with <code>digits</code> and digits
+of p-values with <code>pdigits</code>. Include the leading zeros for
+coefficients and p-values with <code>pzero = TRUE</code>. Remove italics
+with <code>italics = FALSE</code>. With <code>dfs</code>, format degrees
+of freedom as parenthetical (<code>par</code>) or subscripts
+(<code>sub</code>) or remove them (<code>none</code>).</p>
+<table>
+<colgroup>
+<col width="68%" />
+<col width="31%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Code</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>format_stats(aov_mpg_cyl_hp, term = &quot;cyl&quot;)</code></td>
+<td><em>F</em>(1, 28) = 92.5, <em>p</em> &lt; .001</td>
+</tr>
+<tr class="even">
+<td><code>format_stats(aov_mpg_cyl_hp, term = &quot;cyl:hp&quot;)</code></td>
+<td><em>F</em>(1, 28) = 5.0, <em>p</em> = .033</td>
+</tr>
+<tr class="odd">
+<td><code>format_stats(aov_mpg_cyl_hp, term = &quot;cyl&quot;, digits = 2, pdigits = 2)</code></td>
+<td><em>F</em>(1, 28) = 92.47, <em>p</em> &lt; .01</td>
+</tr>
+<tr class="even">
+<td><code>format_stats(aov_mpg_cyl_hp, term = &quot;cyl&quot;, pzero = TRUE)</code></td>
+<td><em>F</em>(1, 28) = 92.5, <em>p</em> &lt; 0.001</td>
+</tr>
+<tr class="odd">
+<td><code>format_stats(aov_mpg_cyl_hp, term = &quot;cyl&quot;, italics = FALSE)</code></td>
+<td>F(1, 28) = 92.5, p &lt; .001</td>
+</tr>
+<tr class="even">
+<td><code>format_stats(aov_mpg_cyl_hp, term = &quot;cyl&quot;, dfs = &quot;sub&quot;)</code></td>
+<td><em>F</em><sub>1,28</sub> = 92.5, <em>p</em> &lt; .001</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="linear-models" class="section level3">
+<h3>Linear models</h3>
+<p>The <code>format_stats()</code> function can also input objects
+returned by the <code>lm()</code>, <code>glm()</code>,
+<code>lme4::lmer()</code>, <code>lmerTest::lmer()</code>, and
+<code>lme4::glmer()</code> functions. It can report overall model
+statistics (e.g., R-squared, AIC) for <code>lm()</code> and
+<code>glm()</code> and term-specific statistics (e.g., coefficients,
+p-values) for all models.</p>
+<p>Let’s start by creating some models:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>lm_mpg_cyl_hp <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> cyl <span class="sc">*</span> hp, <span class="at">data =</span> mtcars)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">summary</span>(lm_mpg_cyl_hp)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; lm(formula = mpg ~ cyl * hp, data = mtcars)</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt;    Min     1Q Median     3Q    Max </span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; -4.778 -1.969 -0.228  1.403  6.491 </span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; (Intercept) 50.751207   6.511686   7.794 1.72e-08 ***</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; cyl         -4.119140   0.988229  -4.168 0.000267 ***</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; hp          -0.170680   0.069102  -2.470 0.019870 *  </span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; cyl:hp       0.019737   0.008811   2.240 0.033202 *  </span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 2.974 on 28 degrees of freedom</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.7801, Adjusted R-squared:  0.7566 </span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt; F-statistic: 33.11 on 3 and 28 DF,  p-value: 2.386e-09</span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>glm_am_cyl_hp <span class="ot">&lt;-</span> <span class="fu">glm</span>(am <span class="sc">~</span> cyl <span class="sc">*</span> hp, <span class="at">data =</span> mtcars, <span class="at">family =</span> binomial)</span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="fu">summary</span>(glm_am_cyl_hp)</span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="co">#&gt; glm(formula = am ~ cyl * hp, family = binomial, data = mtcars)</span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="co">#&gt;               Estimate Std. Error z value Pr(&gt;|z|)  </span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a><span class="co">#&gt; (Intercept)  6.1841091  4.8991403   1.262   0.2068  </span></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="co">#&gt; cyl         -1.7492046  0.8392287  -2.084   0.0371 *</span></span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="co">#&gt; hp           0.0236170  0.0537369   0.439   0.6603  </span></span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a><span class="co">#&gt; cyl:hp       0.0005349  0.0067365   0.079   0.9367  </span></span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a><span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span></span>
+<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a><span class="co">#&gt;     Null deviance: 43.230  on 31  degrees of freedom</span></span>
+<span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a><span class="co">#&gt; Residual deviance: 28.619  on 28  degrees of freedom</span></span>
+<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a><span class="co">#&gt; AIC: 36.619</span></span>
+<span id="cb5-43"><a href="#cb5-43" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-44"><a href="#cb5-44" tabindex="-1"></a><span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></span>
+<span id="cb5-45"><a href="#cb5-45" tabindex="-1"></a>lmer_mpg_cyl_hp <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(mpg <span class="sc">~</span> hp <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> cyl), <span class="at">data =</span> mtcars)</span>
+<span id="cb5-46"><a href="#cb5-46" tabindex="-1"></a><span class="fu">summary</span>(lmer_mpg_cyl_hp)</span>
+<span id="cb5-47"><a href="#cb5-47" tabindex="-1"></a><span class="co">#&gt; Linear mixed model fit by REML [&#39;lmerMod&#39;]</span></span>
+<span id="cb5-48"><a href="#cb5-48" tabindex="-1"></a><span class="co">#&gt; Formula: mpg ~ hp + (1 | cyl)</span></span>
+<span id="cb5-49"><a href="#cb5-49" tabindex="-1"></a><span class="co">#&gt;    Data: mtcars</span></span>
+<span id="cb5-50"><a href="#cb5-50" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-51"><a href="#cb5-51" tabindex="-1"></a><span class="co">#&gt; REML criterion at convergence: 173.9</span></span>
+<span id="cb5-52"><a href="#cb5-52" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-53"><a href="#cb5-53" tabindex="-1"></a><span class="co">#&gt; Scaled residuals: </span></span>
+<span id="cb5-54"><a href="#cb5-54" tabindex="-1"></a><span class="co">#&gt;      Min       1Q   Median       3Q      Max </span></span>
+<span id="cb5-55"><a href="#cb5-55" tabindex="-1"></a><span class="co">#&gt; -1.57631 -0.66143  0.04006  0.52583  2.20223 </span></span>
+<span id="cb5-56"><a href="#cb5-56" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-57"><a href="#cb5-57" tabindex="-1"></a><span class="co">#&gt; Random effects:</span></span>
+<span id="cb5-58"><a href="#cb5-58" tabindex="-1"></a><span class="co">#&gt;  Groups   Name        Variance Std.Dev.</span></span>
+<span id="cb5-59"><a href="#cb5-59" tabindex="-1"></a><span class="co">#&gt;  cyl      (Intercept) 16.184   4.023   </span></span>
+<span id="cb5-60"><a href="#cb5-60" tabindex="-1"></a><span class="co">#&gt;  Residual              9.917   3.149   </span></span>
+<span id="cb5-61"><a href="#cb5-61" tabindex="-1"></a><span class="co">#&gt; Number of obs: 32, groups:  cyl, 3</span></span>
+<span id="cb5-62"><a href="#cb5-62" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-63"><a href="#cb5-63" tabindex="-1"></a><span class="co">#&gt; Fixed effects:</span></span>
+<span id="cb5-64"><a href="#cb5-64" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value</span></span>
+<span id="cb5-65"><a href="#cb5-65" tabindex="-1"></a><span class="co">#&gt; (Intercept) 24.70757    3.13221   7.888</span></span>
+<span id="cb5-66"><a href="#cb5-66" tabindex="-1"></a><span class="co">#&gt; hp          -0.03047    0.01459  -2.088</span></span>
+<span id="cb5-67"><a href="#cb5-67" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-68"><a href="#cb5-68" tabindex="-1"></a><span class="co">#&gt; Correlation of Fixed Effects:</span></span>
+<span id="cb5-69"><a href="#cb5-69" tabindex="-1"></a><span class="co">#&gt;    (Intr)</span></span>
+<span id="cb5-70"><a href="#cb5-70" tabindex="-1"></a><span class="co">#&gt; hp -0.645</span></span>
+<span id="cb5-71"><a href="#cb5-71" tabindex="-1"></a>glmer_am_cyl_hp <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">glmer</span>(am <span class="sc">~</span> hp <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> cyl), <span class="at">data =</span> mtcars, <span class="at">family =</span> binomial)</span>
+<span id="cb5-72"><a href="#cb5-72" tabindex="-1"></a><span class="fu">summary</span>(glmer_am_cyl_hp)</span>
+<span id="cb5-73"><a href="#cb5-73" tabindex="-1"></a><span class="co">#&gt; Generalized linear mixed model fit by maximum likelihood (Laplace</span></span>
+<span id="cb5-74"><a href="#cb5-74" tabindex="-1"></a><span class="co">#&gt;   Approximation) [glmerMod]</span></span>
+<span id="cb5-75"><a href="#cb5-75" tabindex="-1"></a><span class="co">#&gt;  Family: binomial  ( logit )</span></span>
+<span id="cb5-76"><a href="#cb5-76" tabindex="-1"></a><span class="co">#&gt; Formula: am ~ hp + (1 | cyl)</span></span>
+<span id="cb5-77"><a href="#cb5-77" tabindex="-1"></a><span class="co">#&gt;    Data: mtcars</span></span>
+<span id="cb5-78"><a href="#cb5-78" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-79"><a href="#cb5-79" tabindex="-1"></a><span class="co">#&gt;      AIC      BIC   logLik deviance df.resid </span></span>
+<span id="cb5-80"><a href="#cb5-80" tabindex="-1"></a><span class="co">#&gt;     44.3     48.7    -19.2     38.3       29 </span></span>
+<span id="cb5-81"><a href="#cb5-81" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-82"><a href="#cb5-82" tabindex="-1"></a><span class="co">#&gt; Scaled residuals: </span></span>
+<span id="cb5-83"><a href="#cb5-83" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb5-84"><a href="#cb5-84" tabindex="-1"></a><span class="co">#&gt; -1.7638 -0.5868 -0.2758  0.6521  1.3884 </span></span>
+<span id="cb5-85"><a href="#cb5-85" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-86"><a href="#cb5-86" tabindex="-1"></a><span class="co">#&gt; Random effects:</span></span>
+<span id="cb5-87"><a href="#cb5-87" tabindex="-1"></a><span class="co">#&gt;  Groups Name        Variance Std.Dev.</span></span>
+<span id="cb5-88"><a href="#cb5-88" tabindex="-1"></a><span class="co">#&gt;  cyl    (Intercept) 5.786    2.405   </span></span>
+<span id="cb5-89"><a href="#cb5-89" tabindex="-1"></a><span class="co">#&gt; Number of obs: 32, groups:  cyl, 3</span></span>
+<span id="cb5-90"><a href="#cb5-90" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-91"><a href="#cb5-91" tabindex="-1"></a><span class="co">#&gt; Fixed effects:</span></span>
+<span id="cb5-92"><a href="#cb5-92" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error z value Pr(&gt;|z|)</span></span>
+<span id="cb5-93"><a href="#cb5-93" tabindex="-1"></a><span class="co">#&gt; (Intercept) -3.46102    2.82069  -1.227    0.220</span></span>
+<span id="cb5-94"><a href="#cb5-94" tabindex="-1"></a><span class="co">#&gt; hp           0.02157    0.01659   1.300    0.194</span></span>
+<span id="cb5-95"><a href="#cb5-95" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-96"><a href="#cb5-96" tabindex="-1"></a><span class="co">#&gt; Correlation of Fixed Effects:</span></span>
+<span id="cb5-97"><a href="#cb5-97" tabindex="-1"></a><span class="co">#&gt;    (Intr)</span></span>
+<span id="cb5-98"><a href="#cb5-98" tabindex="-1"></a><span class="co">#&gt; hp -0.856</span></span>
+<span id="cb5-99"><a href="#cb5-99" tabindex="-1"></a>lmer_mpg_cyl_hp2 <span class="ot">&lt;-</span> lmerTest<span class="sc">::</span><span class="fu">lmer</span>(mpg <span class="sc">~</span> hp <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> cyl), <span class="at">data =</span> mtcars)</span>
+<span id="cb5-100"><a href="#cb5-100" tabindex="-1"></a><span class="fu">summary</span>(lmer_mpg_cyl_hp2)</span>
+<span id="cb5-101"><a href="#cb5-101" tabindex="-1"></a><span class="co">#&gt; Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [</span></span>
+<span id="cb5-102"><a href="#cb5-102" tabindex="-1"></a><span class="co">#&gt; lmerModLmerTest]</span></span>
+<span id="cb5-103"><a href="#cb5-103" tabindex="-1"></a><span class="co">#&gt; Formula: mpg ~ hp + (1 | cyl)</span></span>
+<span id="cb5-104"><a href="#cb5-104" tabindex="-1"></a><span class="co">#&gt;    Data: mtcars</span></span>
+<span id="cb5-105"><a href="#cb5-105" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-106"><a href="#cb5-106" tabindex="-1"></a><span class="co">#&gt; REML criterion at convergence: 173.9</span></span>
+<span id="cb5-107"><a href="#cb5-107" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-108"><a href="#cb5-108" tabindex="-1"></a><span class="co">#&gt; Scaled residuals: </span></span>
+<span id="cb5-109"><a href="#cb5-109" tabindex="-1"></a><span class="co">#&gt;      Min       1Q   Median       3Q      Max </span></span>
+<span id="cb5-110"><a href="#cb5-110" tabindex="-1"></a><span class="co">#&gt; -1.57631 -0.66143  0.04006  0.52583  2.20223 </span></span>
+<span id="cb5-111"><a href="#cb5-111" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-112"><a href="#cb5-112" tabindex="-1"></a><span class="co">#&gt; Random effects:</span></span>
+<span id="cb5-113"><a href="#cb5-113" tabindex="-1"></a><span class="co">#&gt;  Groups   Name        Variance Std.Dev.</span></span>
+<span id="cb5-114"><a href="#cb5-114" tabindex="-1"></a><span class="co">#&gt;  cyl      (Intercept) 16.184   4.023   </span></span>
+<span id="cb5-115"><a href="#cb5-115" tabindex="-1"></a><span class="co">#&gt;  Residual              9.917   3.149   </span></span>
+<span id="cb5-116"><a href="#cb5-116" tabindex="-1"></a><span class="co">#&gt; Number of obs: 32, groups:  cyl, 3</span></span>
+<span id="cb5-117"><a href="#cb5-117" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-118"><a href="#cb5-118" tabindex="-1"></a><span class="co">#&gt; Fixed effects:</span></span>
+<span id="cb5-119"><a href="#cb5-119" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error       df t value Pr(&gt;|t|)   </span></span>
+<span id="cb5-120"><a href="#cb5-120" tabindex="-1"></a><span class="co">#&gt; (Intercept) 24.70757    3.13221  4.28917   7.888  0.00104 **</span></span>
+<span id="cb5-121"><a href="#cb5-121" tabindex="-1"></a><span class="co">#&gt; hp          -0.03047    0.01459 28.97571  -2.088  0.04568 * </span></span>
+<span id="cb5-122"><a href="#cb5-122" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb5-123"><a href="#cb5-123" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb5-124"><a href="#cb5-124" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-125"><a href="#cb5-125" tabindex="-1"></a><span class="co">#&gt; Correlation of Fixed Effects:</span></span>
+<span id="cb5-126"><a href="#cb5-126" tabindex="-1"></a><span class="co">#&gt;    (Intr)</span></span>
+<span id="cb5-127"><a href="#cb5-127" tabindex="-1"></a><span class="co">#&gt; hp -0.645</span></span></code></pre></div>
+<p>To extract overall model statistics from <code>format_stats()</code>,
+pass the <code>lm</code> or <code>glm</code> object but omit any
+terms.</p>
+<table>
+<colgroup>
+<col width="55%" />
+<col width="44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Code</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>format_stats(lm_mpg_cyl_hp)</code></td>
+<td><em>R</em><sup>2</sup> = 0.757, <em>F</em>(3, 28) = 33.113,
+<em>p</em> &lt; .001</td>
+</tr>
+<tr class="even">
+<td><code>format_stats(lm_mpg_cyl_hp, full = FALSE)</code></td>
+<td><em>R</em><sup>2</sup> = 0.757, <em>p</em> &lt; .001</td>
+</tr>
+<tr class="odd">
+<td><code>format_stats(glm_am_cyl_hp)</code></td>
+<td>Deviance = 28.619, <em>χ</em><sup>2</sup> = 14.611, AIC =
+36.619</td>
+</tr>
+<tr class="even">
+<td><code>format_stats(glm_am_cyl_hp, full = FALSE)</code></td>
+<td>Deviance = 28.619, AIC = 36.619</td>
+</tr>
+</tbody>
+</table>
+<p>To extract term-specific statistics, pass the object and a character
+string describing which term to extract. Apply <code>summary()</code> to
+your <code>lm</code>, <code>glm</code>, <code>lmer</code>, or
+<code>glmer</code> object and copy the text of the term you want to
+extract. Then you can format the number of digits of coefficients with
+<code>digits</code> and digits of p-values with <code>pdigits</code>.
+Include the leading zeros for coefficients and p-values with
+<code>pzero = TRUE</code>. Remove italics with
+<code>italics = FALSE</code>. With <code>dfs</code>, format degrees of
+freedom as parenthetical (<code>par</code>) or subscripts
+(<code>sub</code>) or remove them (<code>none</code>).</p>
+<table>
+<colgroup>
+<col width="58%" />
+<col width="41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Code</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>format_stats(lm_mpg_cyl_hp, term = &quot;cyl&quot;)</code></td>
+<td><em>β</em> = -4.119, SE = 0.988, <em>t</em> = -4.168, <em>p</em>
+&lt; .001</td>
+</tr>
+<tr class="even">
+<td><code>format_stats(lm_mpg_cyl_hp, term = &quot;cyl:hp&quot;)</code></td>
+<td><em>β</em> = 0.020, SE = 0.009, <em>t</em> = 2.240, <em>p</em> =
+.033</td>
+</tr>
+<tr class="odd">
+<td><code>format_stats(glm_am_cyl_hp, term = &quot;cyl&quot;)</code></td>
+<td><em>β</em> = -1.749, SE = 0.839, <em>z</em> = -2.084, <em>p</em> =
+.037</td>
+</tr>
+<tr class="even">
+<td><code>format_stats(lmer_mpg_cyl_hp, term = &quot;hp&quot;)</code></td>
+<td><em>β</em> = -0.030, SE = 0.015, <em>t</em> = -2.088</td>
+</tr>
+<tr class="odd">
+<td><code>format_stats(glmer_am_cyl_hp, term = &quot;hp&quot;)</code></td>
+<td><em>β</em> = 0.022, SE = 0.017, <em>z</em> = 1.300, <em>p</em> =
+.194</td>
+</tr>
+<tr class="even">
+<td><code>format_stats(lmer_mpg_cyl_hp2, term = &quot;hp&quot;)</code></td>
+<td><em>β</em> = -0.030, SE = 0.015, <em>t</em> = -2.088, <em>p</em> =
+.046</td>
+</tr>
+<tr class="odd">
+<td><code>format_stats(lm_mpg_cyl_hp, term = &quot;cyl&quot;, digits = 2, pdigits = 2)</code></td>
+<td><em>β</em> = -4.12, SE = 0.99, <em>t</em> = -4.17, <em>p</em> &lt;
+.01</td>
+</tr>
+<tr class="even">
+<td><code>format_stats(lm_mpg_cyl_hp, term = &quot;cyl&quot;, pzero = TRUE)</code></td>
+<td><em>β</em> = -4.119, SE = 0.988, <em>t</em> = -4.168, <em>p</em>
+&lt; 0.001</td>
+</tr>
+<tr class="odd">
+<td><code>format_stats(lm_mpg_cyl_hp, term = &quot;cyl&quot;, italics = FALSE)</code></td>
+<td>β = -4.119, SE = 0.988, t = -4.168, p &lt; .001</td>
+</tr>
+<tr class="even">
+<td><code>format_stats(lm_mpg_cyl_hp, term = &quot;cyl&quot;, dfs = &quot;sub&quot;)</code></td>
+<td><em>β</em> = -4.119, SE = 0.988, <em>t</em> = -4.168, <em>p</em>
+&lt; .001</td>
 </tr>
 </tbody>
 </table>
@@ -585,9 +895,9 @@ two arguments. Further, Bayes factors can be very large or very small
 when evidence strongly favors one hypothesis over another. Therefore,
 the <code>cutoff</code> argument set a threshold above which (or below
 1/cutoff) the returned value is truncated (e.g., BF &gt; 1000).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>bf_corr <span class="ot">&lt;-</span> BayesFactor<span class="sc">::</span><span class="fu">correlationBF</span>(mtcars<span class="sc">$</span>mpg, mtcars<span class="sc">$</span>disp)</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>bf_ttest <span class="ot">&lt;-</span> BayesFactor<span class="sc">::</span><span class="fu">ttestBF</span>(mtcars<span class="sc">$</span>vs, mtcars<span class="sc">$</span>am)</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>bf_lm <span class="ot">&lt;-</span> BayesFactor<span class="sc">::</span><span class="fu">lmBF</span>(mpg <span class="sc">~</span> am, <span class="at">data =</span> mtcars)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>bf_corr <span class="ot">&lt;-</span> BayesFactor<span class="sc">::</span><span class="fu">correlationBF</span>(mtcars<span class="sc">$</span>mpg, mtcars<span class="sc">$</span>disp)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>bf_ttest <span class="ot">&lt;-</span> BayesFactor<span class="sc">::</span><span class="fu">ttestBF</span>(mtcars<span class="sc">$</span>vs, mtcars<span class="sc">$</span>am)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>bf_lm <span class="ot">&lt;-</span> BayesFactor<span class="sc">::</span><span class="fu">lmBF</span>(mpg <span class="sc">~</span> am, <span class="at">data =</span> mtcars)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
