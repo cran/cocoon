@@ -1,6 +1,6 @@
 Package: cocoon
 Title: Extract, Format, and Print Statistical Output
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: 
     person("Jeffrey R.", "Stevens", , "jeffrey.r.stevens@protonmail.com", 
     role = c("aut", "cre", "cph"),
@@ -22,8 +22,8 @@ URL: https://github.com/JeffreyRStevens/cocoon,
 BugReports: https://github.com/JeffreyRStevens/cocoon/issues
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2025-01-29 19:02:37 UTC; jstevens
-Author: Jeffrey R. Stevens [aut, cre, cph]
-    (<https://orcid.org/0000-0003-2375-1360>)
+Packaged: 2025-09-06 19:36:40 UTC; jstevens
+Author: Jeffrey R. Stevens [aut, cre, cph] (ORCID:
+    <https://orcid.org/0000-0003-2375-1360>)
 Repository: CRAN
-Date/Publication: 2025-01-29 19:20:02 UTC
+Date/Publication: 2025-09-07 22:10:17 UTC
