@@ -1,3 +1,7 @@
+# cocoon 0.3.0
+
+* Add format_stats() methods for `chisq.test()`
+
 # cocoon 0.2.1
 
 * Add `exact = TRUE` to `wilcox.test()` in htest testing to prevent warning produced in r-devel.
